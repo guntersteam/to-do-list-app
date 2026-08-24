@@ -1,6 +1,11 @@
-var builder = WebApplication.CreateBuilder(args);
+using TodoApp.API.Helpers.Extensions;
 
-builder.Services.AddOpenApi();
+var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+var configuration = builder.Configuration;
+
+services.AddOpenApi();
+services.AddDbConnection(configuration);
 
 var app = builder.Build();
 
