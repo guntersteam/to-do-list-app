@@ -15,4 +15,10 @@ public static class ValidationConstants
    {
       public const int MaximumCategoryNameLenght = 100;
    }
+
+   public static class Task
+   {
+      public const int MaximumTaskTitleLenght = 200;
+      public const int MaximumTaskNoteLenght = 3000;
+   }
 }

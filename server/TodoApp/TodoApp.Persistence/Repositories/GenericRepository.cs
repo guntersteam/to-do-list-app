@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using TodoApp.Domain.Contracts.Exception;
 using TodoApp.Domain.Interfaces.Repositories;
 
 namespace TodoApp.Persistence.Repositories;
@@ -23,7 +24,7 @@ public class GenericRepository<T> : IRepository<T> where T : class
    public async Task Add(T entity)
    {
       if(entity == null)
-         throw new ArgumentNullException(nameof(entity));
+         throw new ApiException("Entity is null", 500);
 
       await _dbSet.AddAsync(entity);
    }
@@ -45,7 +46,7 @@ public class GenericRepository<T> : IRepository<T> where T : class
       var entity = await FindById(id);
       if (entity == null)
       {
-         throw new KeyNotFoundException($"Entity with ID {id} not found.");
+         return;
       }
       _dbSet.Remove(entity);
    }
@@ -54,7 +55,7 @@ public class GenericRepository<T> : IRepository<T> where T : class
    {
       if (predicate == null)
       {
-         throw new ArgumentNullException(nameof(predicate), "Predicate cannot be null.");
+         throw new ApiException("Predicate is null",500);
       }
 
       return await _dbSet.Where(predicate).ToListAsync();
@@ -67,7 +68,7 @@ public class GenericRepository<T> : IRepository<T> where T : class
 
    public void DeleteRange(IEnumerable<T> entities)
    {
-      if (entities == null) throw new ArgumentNullException(nameof(entities));
+      if (entities == null) throw new ApiException("Entities is null", 500);
       _dbSet.RemoveRange(entities);
    }
 
