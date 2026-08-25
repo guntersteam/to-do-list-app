@@ -17,5 +17,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
       modelBuilder.ApplyConfiguration(new UserConfiguration());
       modelBuilder.ApplyConfiguration(new CategoryConfiguration());
       modelBuilder.ApplyConfiguration(new TaskConfiguration());
+      modelBuilder.ApplyConfiguration(new TaskCategoryConfiguration());
    }
 }

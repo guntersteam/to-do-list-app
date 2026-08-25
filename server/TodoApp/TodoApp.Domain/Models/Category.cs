@@ -6,5 +6,6 @@ public class Category : BaseEntity
    
    public Guid UserId { get; set; }
    public User User { get; set; }
-   public IEnumerable<Task> Tasks { get; set; }
+
+   public List<TaskCategory> TaskCategories { get; set; }
 }

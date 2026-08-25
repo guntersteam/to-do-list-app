@@ -20,5 +20,10 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
          .WithMany(u => u.Categories)
          .HasForeignKey(c => c.UserId)
          .OnDelete(DeleteBehavior.Cascade);
+      
+      builder.HasMany(c => c.TaskCategories)
+         .WithOne(t => t.Category)
+         .HasForeignKey(t => t.CategoryId)
+         .OnDelete(DeleteBehavior.Cascade);
    }
 }

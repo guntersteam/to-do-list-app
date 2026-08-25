@@ -30,9 +30,9 @@ public class TaskConfiguration : IEntityTypeConfiguration<TodoApp.Domain.Models.
          .HasForeignKey(t => t.UserId)
          .OnDelete(DeleteBehavior.Cascade);
          
-      builder.HasOne(t => t.Category)
-         .WithMany(c => c.Tasks)
-         .HasForeignKey(t => t.CategoryId)
-         .OnDelete(DeleteBehavior.SetNull);
+      builder.HasMany(t => t.TaskCategories)
+         .WithOne(tc => tc.Task)
+         .HasForeignKey(t => t.TaskId)
+         .OnDelete(DeleteBehavior.Cascade);
    }
 }
