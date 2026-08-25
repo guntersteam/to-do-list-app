@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using TodoApp.Domain.Constants;
 using TodoApp.Domain.Contracts.Response;
 using TodoApp.Domain.Contracts.User;
@@ -18,6 +19,7 @@ public class AuthController : ControllerBase
    }
 
    [HttpPost("sign-up")]
+   [SwaggerOperation("Sign up user in system")]
    public async Task<ActionResult<ApiResponse>> Register(RegisterUserRequest request, CancellationToken cancellationToken)
    {
       await _authService.Register(request, cancellationToken);
@@ -25,6 +27,7 @@ public class AuthController : ControllerBase
    }
 
    [HttpPost("login")]
+   [SwaggerOperation("Sign in user in system")]
    public async Task<ActionResult<ApiResponse>> Login(LoginUserRequest request,CancellationToken cancellationToken)
    {
       var (loginResult, refreshToken) = await _authService.Login(request, cancellationToken);
@@ -39,6 +42,7 @@ public class AuthController : ControllerBase
    }
 
    [HttpPost("logout")]
+   [SwaggerOperation("Logout user in system")]
    public async Task<ActionResult<ApiResponse>> Logout()
    {
       HttpContext.Response.Cookies.Delete(ApiConstants.TokenCookieName);
@@ -46,6 +50,7 @@ public class AuthController : ControllerBase
    }
 
    [HttpPost("refresh")]
+   [SwaggerOperation("Refresh user tokens")]
    public async Task<ActionResult<ApiResponse>> Refresh(CancellationToken cancellationToken)
    {
       var refreshToken = HttpContext.Request.Cookies[ApiConstants.TokenCookieName];

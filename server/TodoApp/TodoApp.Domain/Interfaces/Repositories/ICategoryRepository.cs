@@ -4,5 +4,5 @@ namespace TodoApp.Domain.Interfaces.Repositories;
 
 public interface ICategoryRepository: IRepository<Category>
 {
-   
+   Task<bool> IsExist(Guid userId, string categoryName);
 }

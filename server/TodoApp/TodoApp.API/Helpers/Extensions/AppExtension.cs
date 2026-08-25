@@ -35,6 +35,7 @@ public static class AppExtension
    {
       serviceCollection.AddScoped<IAuthService, AuthService>();
       serviceCollection.AddScoped<ITokenService, TokenService>();
+      serviceCollection.AddScoped<ICategoryService, CategoryService>();
    }
 
    public static void AddHelpers(this IServiceCollection serviceCollection, IConfiguration configuration)

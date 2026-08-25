@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using TodoApp.Domain.Contracts.Category;
 using TodoApp.Domain.Contracts.User;
 using TodoApp.Domain.Models;
 
@@ -9,5 +10,6 @@ public class MappingProfiles : Profile
    public MappingProfiles()
    {
       CreateMap<User,UserDto>();
+      CreateMap<Category,CategoryDto>();
    }
 }

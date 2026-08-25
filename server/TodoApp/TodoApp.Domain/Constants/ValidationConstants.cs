@@ -10,4 +10,9 @@ public static class ValidationConstants
       public const int MinimumUsernameLength = 3;
       public const int MaximumUsernameLength = 30;
    }
+
+   public static class Category
+   {
+      public const int MaximumCategoryNameLenght = 100;
+   }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using TodoApp.Application.Helpers.Jwt;
+using TodoApp.Domain.Contracts.Response;
 
 namespace TodoApp.API.Helpers.Extensions;
 
@@ -58,12 +59,14 @@ public static class ApiExtension
                         return Task.CompletedTask;
                     },
 
-                    OnChallenge = context =>
+                    OnChallenge = async context =>
                     {
                         context.HandleResponse();
                         context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                         context.Response.ContentType = "application/json";
-                        return context.Response.WriteAsync(JsonSerializer.Serialize("You're not authorized"));
+                        var response = ApiResponse.Fail("You're not logged in");
+
+                        await context.Response.WriteAsJsonAsync(response);
                     }
                 };
             });
