@@ -482,3 +482,5 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+web/to-do-app-web/src/environments/environment.ts
+web/to-do-app-web/src/environments/environment.development.ts
