@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  imports: [],
+  imports: [ReactiveFormsModule],
   selector: 'app-auth-input',
   styleUrl: './auth-input.css',
   templateUrl: './auth-input.html',
@@ -9,4 +10,5 @@ import { Component, Input } from '@angular/core';
 export class AuthInput {
   @Input() type: string = "text"
   @Input() placeholder: string  = ""
+  @Input() control: any
 }

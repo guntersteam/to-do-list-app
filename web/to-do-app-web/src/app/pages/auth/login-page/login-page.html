@@ -1,16 +1,18 @@
 <h2 class="text-2xl font-bold text-white mb-6 tracking-wider">Login</h2>
 
-<div class="flex flex-col gap-y-4">
-    <app-auth-input type="email" placeholder="Enter email"></app-auth-input>
-    <app-auth-input type="password" placeholder="Enter password"></app-auth-input>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-y-4">
+
+    <app-auth-input type="email" placeholder="Enter email" [control]="loginForm.get('email')"></app-auth-input>
+    <app-auth-input type="password" placeholder="Enter password" [control]="loginForm.get('password')"></app-auth-input>
 
     <a routerLink="/auth/register" class="text-[10px] text-white mt-2 hover:underline tracking-wider cursor-pointer">
         Don't have an account? Register
     </a>
 
-    <button
-        class="mt-4 px-8 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold rounded-md mx-auto transition-colors cursor-pointer">
-        Login
+    <button type="submit" [disabled]="loginForm.invalid"
+        class="mt-4 px-8 py-2 text-white text-sm font-semibold rounded-md mx-auto transition-colors cursor-pointer"
+        [class.bg-indigo-500]="loginForm.valid" [class.hover:bg-indigo-600]="loginForm.valid"
+        [class.bg-zinc-600]="loginForm.invalid" [class.cursor-not-allowed]="loginForm.invalid">
+        Register
     </button>
-
-</div>
+</form>
