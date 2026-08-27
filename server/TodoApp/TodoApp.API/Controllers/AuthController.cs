@@ -26,7 +26,7 @@ public class AuthController : ControllerBase
       return Ok(ApiResponse.Ok());
    }
 
-   [HttpPost("login")]
+   [HttpPost("sign-in")]
    [SwaggerOperation("Sign in user in system")]
    public async Task<ActionResult<ApiResponse>> Login(LoginUserRequest request,CancellationToken cancellationToken)
    {

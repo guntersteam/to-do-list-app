@@ -15,6 +15,21 @@ namespace TodoApp.API.Helpers.Extensions;
 
 public static class AppExtension
 {
+
+   public static void AddCorsPolicy(this IServiceCollection serviceCollection, IConfiguration configuration)
+   {
+      serviceCollection.AddCors(corsOptions =>
+      {
+         corsOptions.AddPolicy(configuration["Cors:PolicyName"]!, corsPolicy =>
+         {
+            corsPolicy.WithOrigins(configuration["Cors:Origin"]!)
+               .AllowAnyHeader()
+               .AllowAnyMethod()
+               .AllowCredentials();
+         });
+      });
+   }
+   
    public static void AddDbConnection(this IServiceCollection serviceCollection, IConfiguration configuration)
    {
       serviceCollection.AddDbContext<AppDbContext>(options =>

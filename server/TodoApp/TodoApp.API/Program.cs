@@ -6,11 +6,12 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var configuration = builder.Configuration;
 
+services.AddCorsPolicy(configuration);
+
 services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
 services.AddApiAuthentication(configuration);
 
 services.AddDbConnection(configuration);
-
 services.AddRepositories();
 services.AddServices();
 services.AddControllers();
@@ -27,6 +28,8 @@ if (app.Environment.IsDevelopment())
    app.UseSwagger();
    app.UseSwaggerUI();
 }
+
+app.UseCors(configuration["Cors:PolicyName"]!);
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseMiddleware<ValidationExceptionMiddleware>();
