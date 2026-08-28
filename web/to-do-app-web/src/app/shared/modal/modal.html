@@ -1,0 +1,24 @@
+@if (isOpen) {
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 transition-all"
+    (click)="close.emit()">
+
+    <div class="bg-zinc-800 border border-zinc-700 rounded-xl shadow-2xl w-full max-w-lg flex flex-col relative max-h-[90vh]"
+        (click)="$event.stopPropagation()">
+
+        <div class="flex items-center justify-between p-5 border-b border-zinc-700/50">
+            <h2 class="text-xl font-bold text-white">{{ title }}</h2>
+            <button (click)="close.emit()" class="text-zinc-400 hover:text-white transition-colors outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
+
+        <div class="p-5 overflow-y-auto custom-scrollbar">
+            <ng-content></ng-content>
+        </div>
+
+    </div>
+</div>
+}

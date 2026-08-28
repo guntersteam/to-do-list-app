@@ -1,0 +1,23 @@
+@if (totalPages > 1) {
+<div class="flex items-center justify-center gap-4 mt-8 mb-4">
+
+    <button (click)="onPrev()" [disabled]="currentPage === 1"
+        class="flex items-center justify-center w-10 h-10 rounded-md bg-zinc-800 text-white border border-zinc-700 hover:bg-zinc-700 hover:border-indigo-500 disabled:opacity-50 disabled:pointer-events-none transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+    </button>
+
+    <span class="text-sm font-medium text-zinc-400 select-none">
+        Page <span class="text-white">{{ currentPage }}</span> of <span class="text-white">{{ totalPages }}</span>
+    </span>
+
+    <button (click)="onNext()" [disabled]="currentPage === totalPages"
+        class="flex items-center justify-center w-10 h-10 rounded-md bg-zinc-800 text-white border border-zinc-700 hover:bg-zinc-700 hover:border-indigo-500 disabled:opacity-50 disabled:pointer-events-none transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+    </button>
+
+</div>
+}
