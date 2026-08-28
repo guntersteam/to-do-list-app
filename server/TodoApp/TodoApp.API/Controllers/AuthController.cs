@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using TodoApp.API.Helpers.Jwt;
 using TodoApp.Domain.Constants;
 using TodoApp.Domain.Contracts.Response;
 using TodoApp.Domain.Contracts.User;
@@ -16,6 +19,17 @@ public class AuthController : ControllerBase
    public AuthController(IAuthService authService)
    {
       _authService = authService;
+   }
+
+   [HttpGet("me")]
+   [SwaggerOperation("Get user profile")]
+   [Authorize]
+   public async Task<ActionResult<ApiResponse>> GetUserInformation(CancellationToken cancellationToken)
+   {
+      var userId = JwtHelper.ExtractUserId(HttpContext)!;
+      var userInformation = await _authService.GetUserInformation(userId.Value, cancellationToken);
+      
+      return Ok(ApiResponse.Ok(userInformation));
    }
 
    [HttpPost("sign-up")]

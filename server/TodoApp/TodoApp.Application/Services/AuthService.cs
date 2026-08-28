@@ -105,4 +105,11 @@ public class AuthService : IAuthService
       
       return (loginResponse,newRefreshToken);
    }
+
+   public async Task<UserDto> GetUserInformation(Guid userId, CancellationToken cancellationToken)
+   {
+      var user = await _userRepository.FindById(userId);
+
+      return user == null ? throw new ApiException("User wasn't found", 404) : _mapper.Map<UserDto>(user);
+   }
 }
