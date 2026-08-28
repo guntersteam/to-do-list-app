@@ -1,0 +1,19 @@
+@import 'tailwindcss';
+
+
+@font-face {
+    font-family: "MyKanit";
+    src: url('/assets/fonts/Kanit/kanit-regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+    font-family: "MyKanit";
+}

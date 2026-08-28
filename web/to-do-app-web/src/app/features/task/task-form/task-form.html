@@ -1,0 +1,34 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+    <div class="flex flex-col gap-1">
+        <label class="text-sm font-medium text-zinc-300">Title</label>
+        <input type="text" formControlName="title"
+            class="w-full bg-zinc-900 border border-zinc-700 rounded-md py-2 px-3 text-white focus:outline-none focus:border-indigo-500 transition-colors">
+    </div>
+
+    <div class="flex flex-col gap-1">
+        <label class="text-sm font-medium text-zinc-300">Note (Optional)</label>
+        <textarea formControlName="note" rows="10"
+            class="w-full bg-zinc-900 border border-zinc-700 rounded-md py-2 px-3 text-white focus:outline-none focus:border-indigo-500 transition-colors resize-none custom-scrollbar"></textarea>
+    </div>
+
+    <div class="flex flex-col gap-1">
+        <label class="text-sm font-medium text-zinc-300">Due Time (Optional)</label>
+        <input type="datetime-local" formControlName="dueTime"
+            class="w-full bg-zinc-900 border border-zinc-700 rounded-md py-2 px-3 text-white focus:outline-none focus:border-indigo-500 transition-colors [color-scheme:dark]">
+    </div>
+
+    <div class="flex flex-col gap-1">
+        <label class="text-sm font-medium text-zinc-300">Categories</label>
+        <select formControlName="categoryIds" multiple
+            class="w-full bg-zinc-900 border border-zinc-700 rounded-md py-2 px-3 text-white focus:outline-none focus:border-indigo-500 transition-colors h-24 custom-scrollbar">
+            @for (category of categories; track category.id) {
+            <option [value]="category.id" class="py-1">{{ category.name }}</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" [disabled]="form.invalid"
+        class="w-full mt-4 bg-indigo-500 hover:bg-indigo-600 disabled:bg-zinc-700 disabled:text-zinc-500 text-white font-bold py-2 px-4 rounded-md transition-colors uppercase tracking-wider">
+        {{ task ? 'Update Task' : 'Create Task' }}
+    </button>
+</form>

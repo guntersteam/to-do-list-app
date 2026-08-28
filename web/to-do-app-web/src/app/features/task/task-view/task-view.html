@@ -1,0 +1,41 @@
+<div class="flex flex-col gap-5 text-white">
+    <div class="flex flex-col gap-1 border-b border-zinc-700 pb-4">
+        <h3 class="text-2xl font-bold wrap-break-words">{{ task.title }}</h3>
+        <div class="flex items-center gap-3 mt-2">
+            <span class="text-xs font-medium px-2 py-1 rounded-md"
+                [ngClass]="task.isCompleted ? 'bg-green-500/20 text-green-400' : 'bg-orange-500/20 text-orange-400'">
+                {{ task.isCompleted ? 'COMPLETED' : 'IN PROGRESS' }}
+            </span>
+            <span class="text-xs text-zinc-400">
+                Created: {{ task.createdAt | date:'medium' }}
+            </span>
+        </div>
+    </div>
+
+    @if (task.note) {
+    <div class="flex flex-col gap-2">
+        <h4 class="text-sm font-semibold text-zinc-400 uppercase tracking-wider">Description</h4>
+        <p class="text-zinc-300 text-base leading-relaxed whitespace-pre-wrap break-all">{{ task.note }}</p>
+    </div>
+    }
+
+    @if (task.dueTime) {
+    <div class="flex flex-col gap-2">
+        <h4 class="text-sm font-semibold text-zinc-400 uppercase tracking-wider">Deadline</h4>
+        <p class="text-red-400 font-medium">{{ task.dueTime | date:'medium' }}</p>
+    </div>
+    }
+
+    @if (task.taskCategories.length > 0) {
+    <div class="flex flex-col gap-2 mt-2">
+        <h4 class="text-sm font-semibold text-zinc-400 uppercase tracking-wider">Categories</h4>
+        <div class="flex flex-wrap gap-2">
+            @for (category of task.taskCategories; track category.id) {
+            <span class="px-3 py-1 bg-zinc-700/50 text-zinc-200 text-xs rounded-md border border-zinc-600">
+                {{ category.name }}
+            </span>
+            }
+        </div>
+    </div>
+    }
+</div>

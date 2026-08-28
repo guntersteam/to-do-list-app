@@ -1,0 +1,71 @@
+<div class="flex flex-col gap-y-6">
+
+    @if (authService.currentUser$ | async; as user) {
+    <div class="flex items-center gap-4 bg-zinc-800/40 border border-zinc-700/50 rounded-full px-5 py-2 w-fit">
+
+        <span class="text-sm font-medium text-zinc-300 select-none">
+            Your list, <span class="text-indigo-400 font-bold tracking-wide">{{ user.username }}</span>!
+        </span>
+
+        <div class="w-px h-4 bg-zinc-700"></div>
+
+        <button (click)="authService.logout()"
+            class="flex items-center gap-1.5 text-sm font-medium text-zinc-400 hover:text-red-400 transition-colors">
+            <span>Logout</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                </path>
+            </svg>
+        </button>
+
+    </div>
+    }
+
+    <div class="flex justify-end gap-4 max-w-4xl mx-auto w-full mt-4">
+        <button (click)="openCategoryModal()"
+            class="text-indigo-400 hover:text-indigo-300 text-sm font-semibold transition-colors">
+            Manage Categories
+        </button>
+        <button (click)="openCreateTaskModal()"
+            class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-md font-bold transition-colors">
+            + New Task
+        </button>
+    </div>
+
+    <app-search [categories]="categories" (filtersChanged)="onFiltersApplied($event)"></app-search>
+
+    <div class="w-full max-w-4xl mx-auto mt-4 flex flex-col">
+
+        <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="onPageChanged($event)">
+        </app-pagination>
+
+        @for (task of tasks; track task.id) {
+        <app-task-item class="w-full block" [task]="task" (toggleComplete)="onToggleTask($event)"
+            (edit)="onEditTask($event)" (delete)="onDeleteTask($event)" (view)="openViewTaskModal($event)">
+        </app-task-item>
+        }
+    </div>
+
+</div>
+
+<app-modal [isOpen]="isTaskFormModalOpen" [title]="selectedTask ? 'Edit Task' : 'Create Task'"
+    (close)="isTaskFormModalOpen = false">
+    @if (isTaskFormModalOpen) {
+    <app-task-form [categories]="categories" [task]="selectedTask" (save)="onSaveTask($event)">
+    </app-task-form>
+    }
+</app-modal>
+
+<app-modal [isOpen]="isTaskViewModalOpen" title="Task Details" (close)="isTaskViewModalOpen = false">
+    @if (isTaskViewModalOpen && selectedTask) {
+    <app-task-view [task]="selectedTask"></app-task-view>
+    }
+</app-modal>
+
+<app-modal [isOpen]="isCategoryModalOpen" title="Manage Categories" (close)="isCategoryModalOpen = false">
+    @if (isCategoryModalOpen) {
+        <app-category-manager [categories]="categories" (add)="onAddCategory($event)" (delete)="onDeleteCategory($event)">
+        </app-category-manager>
+    }
+</app-modal>
